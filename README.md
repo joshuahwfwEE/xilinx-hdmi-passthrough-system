@@ -4,7 +4,7 @@ this version : support up to 3840x2160@30fhz resolution's video  and support 32 
 to be updated:
 4k@60hz repulicate hpd issue  
 dynmaic_config_VDMA(): to be support rx timing custom mode  
-to be support DRU function
+to be support DRU and oversampling feature  
 
 240123: solved the issue of missing parameter in axi_subset_converter while generate the block design  
           solved the issue of design's wrapper mistmatch in creat_proj.tcl

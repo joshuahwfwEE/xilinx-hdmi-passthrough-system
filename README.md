@@ -1,4 +1,6 @@
-hdmi_vdma_passthrough_aud project 
+hdmi_vdma_passthrough_aud project:  
+story: using xilinx hdmirx1.4/2.0 subsystem ip and xilinx hdmitx1.4/2.0 ip and xilinx video phy controller and memory storge system and the others ip to implement a hdmi passthrough system  
+
 this version : support up to 3840x2160@30fhz resolution's video  and support 32 bit 2 channel with 48k sample rate for passsthrough AES3 foramt audio data  
 
 to be updated:

@@ -7,7 +7,7 @@ dynmaic_config_VDMA(): to be support rx timing custom mode
 to be support DRU function
 
 240123: solved the issue of missing parameter in axi_subset_converter while generate the block design  
-        solved the issue of design's wrapper mistmatch in creat_proj.tcl
+          solved the issue of design's wrapper mistmatch in creat_proj.tcl
 
 
 

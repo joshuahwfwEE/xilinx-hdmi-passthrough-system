@@ -6,6 +6,10 @@ to be updated:
 dynmaic_config_VDMA(): to be support rx timing custom mode  
 to be support DRU function
 
+240123: solved the issue of missing parameter in axi_subset_converter while generate the block design  
+        solved the issue of design's wrapper mistmatch in creat_proj.tcl
+
+
 
 hardware setup:   
 1 hdmi_mgb2_v11 at ht3_a24, ddr_ht3 8g at ht3_a15,a16,a17  

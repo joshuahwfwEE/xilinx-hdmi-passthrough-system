@@ -38,8 +38,77 @@ rx replicate hpd issue in 3840x2160@60fps will happen at:
 video format rgb888  
 video format yuv422
 
-but not happen at 3840x2160@60fps in yuv420  
-assume is cause by not support custom mode,  
+but not happen at 3840x2160@60fps in yuv420:  
+--------------------------------------
+---  HDMI SS + VPhy Example v5.4   ---
+---  (c) 2018 by Xilinx, Inc.      ---
+--------------------------------------
+Build Jan 18 2024 - 10:05:49
+--------------------------------------
+VDMA S2MM Starting
+the S2MM0 status is = 10001!!
+the S2MM0 status is = 10000!!
+MM2S frameBuffer_start_rd!
+the MM2S status is = 10001!!
+the MM2S status is = 10000!!
+---------------------------------
+stop VDMA s2mm
+RX stream is up
+reset VDMA s2mm
+stop VDMA mm2s
+reset VDMA mm2s
+restart vdma
+VideoMode:171
+S2MM frameBuffer_start_wr!
+the S2MM0 status is = 10001!!
+MM2S frameBuffer_start_rd!
+the MM2S status is = 10001!!
+
+---------------------
+---   MAIN MENU   ---
+---------------------
+i - Info
+       => Shows information about the HDMI RX stream, HDMI TX stream,
+          GT transceivers and PLL settings.
+c - Colorbar
+       => Displays the colorbar on the source output.
+r - Resolution
+       => Change the video resolution of the colorbar.
+f - Frame rate
+       => Change the frame rate of the colorbar.
+d - Color depth
+       => Change the color depth of the colorbar.
+s - Color space
+       => Change the color space of the colorbar.
+p - Pass-through
+       => Passes the sink input to source output.
+z - GT & HDMI TX/RX log
+       => Shows log information for GT & HDMI TX/RX.
+e - Edid
+       => Display and set edid.
+a - Audio
+       => Audio options.
+v - Video
+       => Video pattern options.
+m - Set HDMI Mode
+n - Set DVI Mode
+w - Reset VDMA buffer
+
+
+TX stream is up
+--------
+Pass-Through :
+        Color Format:             YUV_420
+        Color Depth:              8
+        Pixels Per Clock:         2
+        Mode:                     Progressive
+        DSC Status:               Uncompressed
+        Frame Rate:               60Hz
+        Resolution:               3840x2160@60Hz
+        Pixel Clock:              594000 kHz
+--------
+
+assume is cause by not support custom mode, => checked, video mode is independent to video format    
 1. need to check rx's highest supported pixel clk.
 2. need to check what cause rx issue replicate hpd signal.
 3. check if support hdmi2.0 in edid, because 1.4 is not support 3840x2160@60fhz due to its bandwidth limit.

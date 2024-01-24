@@ -109,8 +109,60 @@ Pass-Through :
         Pixel Clock:              594000 kHz  
 --------  
 
+  VPHY log  
+------  
+GT init start  
+GT init done  
+RX frequency event  
+RX timer event  
+RX DRU disable  
+CPLL reconfig done  
+GT RX reconfig start  
+GT RX reconfig done  
+CPLL lock  
+RX reset done  
+RX MMCM reconfig done  
+RX MMCM lock  
+TX frequency event  
+TX timer event  
+TX MMCM reconfig done  
+QPLL reconfig done  
+GT TX reconfig start  
+GT TX reconfig done  
+TX MMCM lock  
+QPLL lock  
+TX reset done  
+TX alignment done  
+
+HDMI TX log  
+------  
+Initializing HDMI TX core....  
+Initializing VTC core....  
+Reset HDMI TX Subsystem....  
+TX cable is connected....  
+TX Audio Unmuted  
+TX Set Stream  
+TX Stream Start  
+TX Audio Unmuted  
+TX Set Audio Channels (0)  
+TX Stream is Up  
+
+
   
-assume is cause by not support custom mode, => checked, video mode is independent to video format    
+HDMI RX log  
+------  
+Initializing HDMI RX core....  
+Reset HDMI RX Subsystem....  
+RX cable is connected....  
+RX TMDS reference clock change  
+RX Stream Init  
+RX mode changed to HDMI  
+RX Stream Start  
+RX Stream is Up  
+  
+  
+assume is cause by not support custom mode, => checked, video mode is independent to video format,  
+it means that rx receive 
 1. need to check rx's highest supported pixel clk.
 2. need to check what cause rx issue replicate hpd signal.
 3. check if support hdmi2.0 in edid, because 1.4 is not support 3840x2160@60fhz due to its bandwidth limit.

@@ -39,6 +39,7 @@ video format rgb888
 video format yuv422
 
 but not happen at 3840x2160@60fps in yuv420:  
+
 --------------------------------------
 ---  HDMI SS + VPhy Example v5.4   ---
 ---  (c) 2018 by Xilinx, Inc.      ---
@@ -108,6 +109,7 @@ Pass-Through :
         Pixel Clock:              594000 kHz
 --------
 
+  
 assume is cause by not support custom mode, => checked, video mode is independent to video format    
 1. need to check rx's highest supported pixel clk.
 2. need to check what cause rx issue replicate hpd signal.

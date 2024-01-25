@@ -30,7 +30,25 @@ tx only: support up to 3840x2160@60fhz resolution's video.
 tx_only+oversampling: support up to 3840x2160@60fhz resolution's video and low to 3840x2160@2fhz (support lowest pixel clk is 12.375M/s).  
 passthrough project and vdma+ddr4 passthrough project: support up to 3840x2160@30fhz resolution's video and support 32 bit 2 channel with 48k sample rate for passsthrough AES3 foramt audio data.  
 
+in HDMI1.4: maximum support pixel clk is 340MHz  
+the maximum bandwidth: 340MHz*10bit（10bit encode）*3（3 data lanes）= 10.2Gbps  
+according HDMI is using 8b/10b，it need to discont 20% of original bandwidth，hence 10.2Gbps can support maximum bandwidth is: 10.2*0.8= 8.1Gbps  
 
+under HDMI1.4, 3840x2160@60fps yuv420 can be supported because the bandwidth: 4400*2250*8bit*60fps=4.752Gbps can meet the requirement.  
+
+in HDMI2.0: maximum support pixel clk is 600MHz  
+the maximum bandwidth: 600MHz*10bit（10bit encode）*3（3 data lanes）= 18Gbps   
+according HDMI is using 8b/10b，it need to discont 20% of original bandwidth，hence 18Gbps can support maximum bandwidth is: 18*0.8= 14.4Gbps  
+
+
+if you need to receive a video stream with 3840x2160@60fps, bpc=8, format is rgb888 =>  
+required bandwidth: 4400*2250*24bit*60fps=14.256Gbps  
+hence only HDMI2.0 or higher can support the bandwidth  
+
+
+[33mWarning: Connected Sink's EDID indicates HDMI 2.0 capable, but the SCDC read request register bit (VSDB:RR_Capable) is not asserted<ESC>[0m<CR><LF>
+<ESC>[33mWarning: Connected Sink's EDID indicates Deep Color of 16 BpC Not Supported<ESC>[0m<CR><LF>
+you can use http://www.edidreader.com/ to analysis your edid 
 
 
 to be updated and check:

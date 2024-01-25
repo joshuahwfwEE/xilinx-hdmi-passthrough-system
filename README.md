@@ -159,9 +159,12 @@ RX Stream Init
 RX mode changed to HDMI  
 RX Stream Start  
 RX Stream is Up  
-  
+
+
+
   
 assume is cause by not support custom mode, => checked, video mode is independent to video format,  
+yuv420:  
 it means that rx receive 
 1. need to check rx's highest supported pixel clk.
 2. need to check what cause rx issue replicate hpd signal.

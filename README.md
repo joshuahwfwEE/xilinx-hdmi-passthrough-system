@@ -24,9 +24,9 @@ project and usage content:
 8. hdmi rx+vdma+ddr4 to hdmi_tx_only: in order to seperate the video controller, combine tx_only project and rx+vdma+ddr4 project to verify the maximum capability.
 
 capability:  
-rx only and rx+vdma+ddr4: support up to 3840x2160@30fhz resolution's video.  
-rx only+dru and and rx+vdma+ddr4+dru: support up to 3840x2160@30fhz resolution's video and low to pixel clk is 12.375M/s.  
-tx only: support up to 3840x2160@60fhz resolution's video.  
+rx only and rx+vdma+ddr4: support up to 3840x2160@30fhz rgb888 resolution's video.  
+rx only+dru and and rx+vdma+ddr4+dru: support up to 3840x2160@30fhz rgb888 resolution's video and low to pixel clk is 12.375M/s.  
+tx only: support up to 3840x2160@60fhz rgb888 resolution's video.  
 tx_only+oversampling: support up to 3840x2160@60fhz resolution's video and low to 3840x2160@2fhz (support lowest pixel clk is 12.375M/s).  
 passthrough project and vdma+ddr4 passthrough project: support up to 3840x2160@30fhz resolution's video and support 32 bit 2 channel with 48k sample rate for passsthrough AES3 foramt audio data.  
 
@@ -47,8 +47,17 @@ hence only HDMI2.0 or higher can support the bandwidth
 
 
 [33mWarning: Connected Sink's EDID indicates HDMI 2.0 capable, but the SCDC read request register bit (VSDB:RR_Capable) is not asserted<ESC>[0m<CR><LF>
-<ESC>[33mWarning: Connected Sink's EDID indicates Deep Color of 16 BpC Not Supported<ESC>[0m<CR><LF>
-you can use http://www.edidreader.com/ to analysis your edid 
+<ESC>[33mWarning: Connected Sink's EDID indicates Deep Color of 16 BpC Not Supported<ESC>[0m
+you can use http://www.edidreader.com/ to analysis your edid  
+
+240126:  
+Q1:  how to enable hdmi2.0 in xilinx rx subsystem ?
+ans:  
+1. check cable support 2.0 or not
+2. 
+
+
+
 
 
 to be updated and check:

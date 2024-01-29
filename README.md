@@ -44,17 +44,12 @@ according HDMI is using 8b/10b，it need to discont 20% of original bandwidth，
 if you need to receive a video stream with 3840x2160@60fps, bpc=8, format is rgb888 =>  
 required bandwidth: 4400*2250*24bit*60fps=14.256Gbps  
 hence only HDMI2.0 or higher can support the bandwidth  
+data clk = 
 
 
 [33mWarning: Connected Sink's EDID indicates HDMI 2.0 capable, but the SCDC read request register bit (VSDB:RR_Capable) is not asserted<ESC>[0m<CR><LF>
 <ESC>[33mWarning: Connected Sink's EDID indicates Deep Color of 16 BpC Not Supported<ESC>[0m
-you can use http://www.edidreader.com/ to analysis your edid  
-
-240126:  
-Q1:  how to enable hdmi2.0 in xilinx rx subsystem ?
-ans:  
-1. check cable support 2.0 or not
-2. 
+you can use http://www.edidreader.com/ to analysis your edid 
 
 
 

@@ -33,11 +33,11 @@ tx only: support up to 3840x2160@60fhz rgb888 resolution's video.
 tx_only+oversampling: support up to 3840x2160@60fhz resolution's video and low to 3840x2160@2fhz (support lowest pixel clk is 12.375M/s).  
 passthrough project and vdma+ddr4 passthrough project: support up to 3840x2160@30fhz resolution's video and support 32 bit 2 channel with 48k sample rate for passsthrough AES3 foramt audio data.  
 
-update log:  
+updating work log:  
 240123: solved the issue of missing parameter in axi_subset_converter while generate the block design  
-        solved the issue of design's wrapper mistmatch in creat_proj.tcl
+        solved the issue of design's wrapper mistmatch in creat_proj.tcl  
 
-240202: solved the issue in hdmi rx keep assereting reduplicated hpd to the source when source output 4k@60fhz rgb888 in application: Passthrough_Microblaze_1  
+240202: solved the issue in hdmi rx keep assereting reduplicated hpd to the source when source output 4k@60fhz rgb888 in application: Passthrough_Microblaze_1    
 
 
 

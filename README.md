@@ -1,23 +1,26 @@
 hdmi_mgb2_v11 project:  
 
 story:   
-using xilinx hdmirx1.4/2.0 subsystem ip and xilinx hdmitx1.4/2.0 ip and xilinx video phy controller and memory storge system and the others ip 
+using xilinx hdmirx1.4/2.0 subsystem ip and xilinx hdmitx1.4/2.0 ip and xilinx video phy controller and memory storge system  
 to implement a hdmi passthrough system on synopsys haps connect daughter card hdmi_mgb2_v11.  
-this repos conatin a hdmi vdma+ddr4 passthrough project  
 
-you can see Multimedia User Guide (UG1449) to look for which is suitable for you as the solution.  
+this repos conatin a hdmi vdma+ddr4 passthrough project which is used for receive hdmi input stream and write to memory sytem and then read stream out to hdmi output   
+
+this is one of a video solution in Xilinx Multimedia User Guide (UG1449), you can see more solution there.    
 
 
-all project can depart or remix into following project that is already developed and tested well: 
-project and usage content:  
+all project can depart or remix into following project that is already developed and tested well:  
+
+available projects and usage content:  
+
 1 hdmi_mgb2_v11:
-1. hdmi tx_only project: use tpg and xilinx hdmi1.4/2.0 tx subsystem and video phy controller for output the video stream   
-2. hdmi rx_only project: use video phy controller and xilinx hdmi1.4/2.0 tx subsystem to receive input hdmi video data and convert into axi stream
+1. hdmi tx_only : use tpg and xilinx hdmi1.4/2.0 tx subsystem and video phy controller for output the video stream   
+2. hdmi rx_only : use video phy controller and xilinx hdmi1.4/2.0 tx subsystem to receive input hdmi video data and convert into axi stream  
    
 1 hdmi_mgb2_v11 + 1 ddr4_ht3:   
-4. hdmi rx+vdma+ddr4 project: add extra add extra video dma and ddr4 as the storage system on hdmi rx_only project  
-5. hdmi passthrough project: combine rx and tx feature,  rx can receive the input video stream and analysis the infomation and use this infomation for tx's configuration  
-6. hdmi vdma+ddr4 passthrough project : similar to hdmi passthrough project, add extra video dma and ddr4 as the video buffer.   
+4. hdmi rx+vdma+ddr4 : add extra add extra video dma and ddr4 as the storage system on hdmi rx_only project  
+5. hdmi passthrough : combine rx and tx feature,  rx can receive the input video stream and analysis the infomation and use this infomation for tx's configuration  
+6. hdmi vdma+ddr4 passthrough  : similar to hdmi passthrough project, add extra video dma and ddr4 as the video buffer.   
 
 2 hdmi_mgb2_v11 + 1 ddr4_ht3:   
 7. hdmi tx_only+oversampling to hdmi rx+dru+vdma+ddr4: combine tx_only with oversampling project and rx+dru+vdma+ddr4 project and verify the lowest pixel clk is 12.375M/s  
@@ -29,6 +32,24 @@ rx only+dru and and rx+vdma+ddr4+dru: support up to 3840x2160@30fhz rgb888 resol
 tx only: support up to 3840x2160@60fhz rgb888 resolution's video.  
 tx_only+oversampling: support up to 3840x2160@60fhz resolution's video and low to 3840x2160@2fhz (support lowest pixel clk is 12.375M/s).  
 passthrough project and vdma+ddr4 passthrough project: support up to 3840x2160@30fhz resolution's video and support 32 bit 2 channel with 48k sample rate for passsthrough AES3 foramt audio data.  
+
+update log:  
+240123: solved the issue of missing parameter in axi_subset_converter while generate the block design  
+        solved the issue of design's wrapper mistmatch in creat_proj.tcl
+
+240202: solved the issue in hdmi rx keep assereting reduplicated hpd to the source when source output 4k@60fhz rgb888 in application: Passthrough_Microblaze_1  
+
+
+
+
+
+
+
+
+
+
+
+
 
 in HDMI1.4: maximum support pixel clk is 340MHz  
 the maximum bandwidth: 340MHz*10bit（10bit encode）*3（3 data lanes）= 10.2Gbps  
@@ -47,10 +68,6 @@ hence only HDMI2.0 or higher can support the bandwidth
 data clk = 
 
 
-[33mWarning: Connected Sink's EDID indicates HDMI 2.0 capable, but the SCDC read request register bit (VSDB:RR_Capable) is not asserted<ESC>[0m<CR><LF>
-<ESC>[33mWarning: Connected Sink's EDID indicates Deep Color of 16 BpC Not Supported<ESC>[0m
-you can use http://www.edidreader.com/ to analysis your edid 
-
 
 
 
@@ -59,8 +76,6 @@ to be updated and check:
 rx replicate hpd issue in 3840x2160@60fps will happen at:  
 video format rgb888  
 video format yuv422
-
-but not happen at 3840x2160@60fps in yuv420:  
 
 --------------------------------------  
 ---  HDMI SS + VPhy Example v5.4   ---  

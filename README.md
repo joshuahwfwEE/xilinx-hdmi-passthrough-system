@@ -32,18 +32,27 @@ rx only+dru and and rx+vdma+ddr4+dru: support up to 3840x2160@30fhz rgb888 resol
 tx only: support up to 3840x2160@60fhz rgb888 resolution's video.  
 tx_only+oversampling: support up to 3840x2160@60fhz resolution's video and low to 3840x2160@2fhz (support lowest pixel clk is 12.375M/s).  
 passthrough project and vdma+ddr4 passthrough project: support up to 3840x2160@30fhz resolution's video and support 32 bit 2 channel with 48k sample rate for passsthrough AES3 foramt audio data.  
+ 
+other vision of hdmi vdma passthrough project:  
+dual board: 1 board as rx+vdma+ddr4  
+            1 board as tx_only and rx receive data bypass to tx output  
+            
+add feature:  rx data recovery feature
+              tx oversmpaling feature
 
-updating work log:  
-240123: solved the issue of missing parameter in axi_subset_converter while generate the block design  
-        solved the issue of design's wrapper mistmatch in creat_proj.tcl  
+hardware setup:   
+1 hdmi_mgb2_v11 at ht3_a24, ddr_ht3 8g at ht3_a15,a16,a17  
+hdmi_mgb2 j1 connect to mgb2 am221  
 
-240202: solved the issue in hdmi rx keep assereting reduplicated hpd to the source when source output 4k@60fhz rgb888 in application: Passthrough_Microblaze_1    
-
-
-
-
-
-
+program process:  
+open hasp100-runtime bat: drives/C/Synopsys/protocomp-rtR-2020.12-SP1/bin/confprosh.bat  
+cd C:\HAPS100_1F\02_confpro_scripts  
+confprosh                                // enter confprosh  
+source 00_configure.tcl                  // program bit file and setting configuraions to fpga   
+source 01_jtag_start.tcl                 // open jtag channel  
+connect_hw_server                        // connect hw server  
+open_hw_target -xvc_url localhost:65137  // connect hw target  
+source 02_jtag_close.tcl                 // close jtag channel  
 
 
 
@@ -56,83 +65,8 @@ the maximum bandwidth: 340MHz*10bit（10bit encode）*3（3 data lanes）= 10.2G
 according HDMI is using 8b/10b，it need to discont 20% of original bandwidth，hence 10.2Gbps can support maximum bandwidth is: 10.2*0.8= 8.1Gbps  
 
 under HDMI1.4, 3840x2160@60fps yuv420 can be supported because the bandwidth: 4400*2250*8bit*60fps=4.752Gbps can meet the requirement.  
+if stream up, you can see the folowing message: ...  
 
-in HDMI2.0: maximum support pixel clk is 600MHz  
-the maximum bandwidth: 600MHz*10bit（10bit encode）*3（3 data lanes）= 18Gbps   
-according HDMI is using 8b/10b，it need to discont 20% of original bandwidth，hence 18Gbps can support maximum bandwidth is: 18*0.8= 14.4Gbps  
-
-
-if you need to receive a video stream with 3840x2160@60fps, bpc=8, format is rgb888 =>  
-required bandwidth: 4400*2250*24bit*60fps=14.256Gbps  
-hence only HDMI2.0 or higher can support the bandwidth  
-data clk = 
-
-
-
-
-
-
-to be updated and check:
-rx replicate hpd issue in 3840x2160@60fps will happen at:  
-video format rgb888  
-video format yuv422
-
---------------------------------------  
----  HDMI SS + VPhy Example v5.4   ---  
----  (c) 2018 by Xilinx, Inc.      ---  
---------------------------------------  
-Build Jan 18 2024 - 10:05:49  
---------------------------------------  
-VDMA S2MM Starting  
-the S2MM0 status is = 10001!!  
-the S2MM0 status is = 10000!!  
-MM2S frameBuffer_start_rd!  
-the MM2S status is = 10001!!  
-the MM2S status is = 10000!!  
----------------------------------  
-stop VDMA s2mm  
-RX stream is up  
-reset VDMA s2mm  
-stop VDMA mm2s  
-reset VDMA mm2s  
-restart vdma  
-VideoMode:171  
-S2MM frameBuffer_start_wr!  
-the S2MM0 status is = 10001!!  
-MM2S frameBuffer_start_rd!  
-the MM2S status is = 10001!!  
-
----------------------  
----   MAIN MENU   ---  
----------------------    
-i - Info  
-       => Shows information about the HDMI RX stream, HDMI TX stream,  
-          GT transceivers and PLL settings.  
-c - Colorbar  
-       => Displays the colorbar on the source output.  
-r - Resolution  
-       => Change the video resolution of the colorbar.  
-f - Frame rate  
-       => Change the frame rate of the colorbar.  
-d - Color depth  
-       => Change the color depth of the colorbar.  
-s - Color space  
-       => Change the color space of the colorbar.  
-p - Pass-through  
-       => Passes the sink input to source output.  
-z - GT & HDMI TX/RX log  
-       => Shows log information for GT & HDMI TX/RX.  
-e - Edid  
-       => Display and set edid.  
-a - Audio  
-       => Audio options.  
-v - Video  
-       => Video pattern options.  
-m - Set HDMI Mode  
-n - Set DVI Mode  
-w - Reset VDMA buffer  
-  
-  
 TX stream is up  
 --------  
 Pass-Through :  
@@ -184,8 +118,6 @@ TX Audio Unmuted
 TX Set Audio Channels (0)  
 TX Stream is Up  
 
-
-  
 HDMI RX log  
 ------  
 Initializing HDMI RX core....  
@@ -198,44 +130,44 @@ RX Stream Start
 RX Stream is Up  
 
 
+however, RX replicate asserting HPD signal issue in 3840x2160@60fps will happen at:  
+video format: rgb888, yuv422  
 
-  
-assume is cause by not support custom mode, => checked, video mode is independent to video format,  
-yuv420:  
-it means that rx receive 
+
+suspect:  
+in HDMI2.0: maximum support pixel clk is 600MHz  
+the maximum bandwidth: 600MHz*10bit（10bit encode）*3（3 data lanes）= 18Gbps   
+according HDMI is using 8b/10b，it need to discont 20% of original bandwidth，hence 18Gbps can support maximum bandwidth is: 18*0.8= 14.4Gbps  
+
+if you need to receive a video stream with 3840x2160@60fps, bpc=8, format is rgb888 =>  
+required bandwidth: 4400*2250*24bit*60fps=14.256Gbps  
+hence only HDMI2.0 or higher can support the bandwidth  
+
+if this issue caused by not supporting the custom mode, => checked, video mode is independent to video format yuv420:  
+ 
 1. need to check rx's highest supported pixel clk.
 2. need to check what cause rx issue replicate hpd signal.
 3. check if support hdmi2.0 in edid, because 1.4 is not support 3840x2160@60fhz due to its bandwidth limit.
 4. dynmaic_config_VDMA(): if rx receive video infomation doesn't exist at video_timing_table, need to add it maunally(try to add 3840x2160@60fhz cvt and 3840x2160@60fhz cvtrb)
-5. add DRU feature and oversampling feature at 1 hdmi_mgb2_v11 + 1 ddr4_ht3: 
+5. add DRU feature and oversampling feature at 1 hdmi_mgb2_v11 + 1 ddr4_ht3:
+
+problem solved:  
+after asserted 	   
+XV_HdmiRxSs_SetCallback(&HdmiRxSs, XV_HDMIRXSS_HANDLER_DDC, RxDdcCallback, (void *)&HdmiRxSs); in main()  
+it can receive the hdmi2.0 video due to DDC callback active, it might make DDC channel(i2c) give a correct response to source side after it read the edid of xilinx hdmi,
+instead of asserting incorrectly hpd signal to source  
 
 
+updating work log:  
 240123: solved the issue of missing parameter in axi_subset_converter while generate the block design  
-        solved the issue of design's wrapper mistmatch in creat_proj.tcl
+        solved the issue of design's wrapper mistmatch in creat_proj.tcl  
+
+240202: solved the issue in hdmi rx keep assereting reduplicated hpd to the source when source output 4k@60fhz rgb888 in application: Passthrough_Microblaze_1   
+        
 
 
 
 
-hardware setup:   
-1 hdmi_mgb2_v11 at ht3_a24, ddr_ht3 8g at ht3_a15,a16,a17  
-hdmi_mgb2 j1 connect to mgb2 am221  
-
-program process:  
-open hasp100-runtime bat: drives/C/Synopsys/protocomp-rtR-2020.12-SP1/bin/confprosh.bat  
-cd C:\HAPS100_1F\02_confpro_scripts  
-confprosh  
-source 00_configure.tcl  
-source 01_jtag_start.tcl  
-connect_hw_server  
-open_hw_target -xvc_url localhost:65137  
-
-source 02_jtag_close.tcl
 
 
 
-other vision of hdmi vdma passthrough project:  
-dual board: 1 board as rx+vdma+ddr4  
-            1 board as tx_only and rx receive data bypass to tx output  
-            
-add feature:  rx data recovery feature
-              tx oversmpaling feature

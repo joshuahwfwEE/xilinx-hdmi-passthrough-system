@@ -63,8 +63,9 @@ according HDMI is using 8b/10b，it need to discont 20% of original bandwidth，
 under HDMI1.4, 3840x2160@60fps yuv420 can be supported because the bandwidth: 4400*2250*8bit*60fps=4.752Gbps can meet the requirement.  
 if stream up, you can see the folowing message: ...  
 
+
 TX stream is up  
---------  
+--------
 Pass-Through :  
         Color Format:             YUV_420  
         Color Depth:              8  
@@ -74,10 +75,12 @@ Pass-Through :
         Frame Rate:               60Hz  
         Resolution:               3840x2160@60Hz  
         Pixel Clock:              594000 kHz  
---------  
+--------
 
-  VPHY log  
-------  
+
+--------
+VPHY LOG  
+--------
 GT init start  
 GT init done  
 RX frequency event  
@@ -154,10 +157,12 @@ it can receive the hdmi2.0 video due to DDC callback active, it might make DDC c
 instead of asserting incorrectly hpd signal to source  
 
 
+
+
+
 updating work log:  
 240123: solved the issue of missing parameter in axi_subset_converter while generate the block design  
         solved the issue of design's wrapper mistmatch in creat_proj.tcl  
-
 240202: solved the issue in hdmi rx keep assereting reduplicated hpd to the source when source output 4k@60fhz rgb888 in application: Passthrough_Microblaze_1   
         
 

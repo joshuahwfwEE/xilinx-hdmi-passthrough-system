@@ -5,10 +5,7 @@ using xilinx hdmirx1.4/2.0 subsystem ip and xilinx hdmitx1.4/2.0 ip and xilinx v
 to implement a hdmi passthrough system on synopsys haps connect daughter card hdmi_mgb2_v11.  
 
 this repos conatin a hdmi vdma+ddr4 passthrough project which is used for receive hdmi input stream and write to memory sytem and then read stream out to hdmi output   
-
 this is one of a video solution in Xilinx Multimedia User Guide (UG1449), you can see more solution there.    
-
-
 all project can depart or remix into following project that is already developed and tested well:  
 
 available projects and usage content:  
@@ -53,7 +50,6 @@ source 01_jtag_start.tcl                 // open jtag channel
 connect_hw_server                        // connect hw server  
 open_hw_target -xvc_url localhost:65137  // connect hw target  
 source 02_jtag_close.tcl                 // close jtag channel  
-
 
 
 

@@ -105,7 +105,7 @@ TX reset done
 TX alignment done  
 
 HDMI TX log  
-------  
+--------
 Initializing HDMI TX core....  
 Initializing VTC core....  
 Reset HDMI TX Subsystem....  
@@ -116,9 +116,10 @@ TX Stream Start
 TX Audio Unmuted  
 TX Set Audio Channels (0)  
 TX Stream is Up  
+--------
 
 HDMI RX log  
-------  
+--------
 Initializing HDMI RX core....  
 Reset HDMI RX Subsystem....  
 RX cable is connected....  
@@ -127,7 +128,7 @@ RX Stream Init
 RX mode changed to HDMI  
 RX Stream Start  
 RX Stream is Up  
-
+--------
 
 however, RX replicate asserting HPD signal issue in 3840x2160@60fps will happen at:  
 video format: rgb888, yuv422  

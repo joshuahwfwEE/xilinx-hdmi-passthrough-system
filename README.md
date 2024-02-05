@@ -65,7 +65,7 @@ if stream up, you can see the folowing message: ...
 
 
 TX stream is up  
---------
+
 Pass-Through :  
         Color Format:             YUV_420  
         Color Depth:              8  
@@ -75,12 +75,12 @@ Pass-Through :
         Frame Rate:               60Hz  
         Resolution:               3840x2160@60Hz  
         Pixel Clock:              594000 kHz  
---------
 
 
---------
+
+
 VPHY LOG  
---------
+
 GT init start  
 GT init done  
 RX frequency event  
@@ -105,7 +105,7 @@ TX reset done
 TX alignment done  
 
 HDMI TX log  
---------
+
 Initializing HDMI TX core....  
 Initializing VTC core....  
 Reset HDMI TX Subsystem....  
@@ -116,10 +116,10 @@ TX Stream Start
 TX Audio Unmuted  
 TX Set Audio Channels (0)  
 TX Stream is Up  
---------
+
 
 HDMI RX log  
---------
+
 Initializing HDMI RX core....  
 Reset HDMI RX Subsystem....  
 RX cable is connected....  
@@ -128,7 +128,7 @@ RX Stream Init
 RX mode changed to HDMI  
 RX Stream Start  
 RX Stream is Up  
---------
+
 
 however, RX replicate asserting HPD signal issue in 3840x2160@60fps will happen at:  
 video format: rgb888, yuv422  

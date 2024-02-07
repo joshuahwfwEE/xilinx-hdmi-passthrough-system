@@ -36,7 +36,7 @@ dual board: 1 board as rx+vdma+ddr4
             
 add feature:  rx data recovery feature
               tx oversmpaling feature
-
+#################################################################################################################   
 hardware setup:   
 1 hdmi_mgb2_v11 at ht3_a24, ddr_ht3 8g at ht3_a15,a16,a17  
 hdmi_mgb2 j1 connect to mgb2 am221  
@@ -122,7 +122,7 @@ RX mode changed to HDMI
 RX Stream Start  
 RX Stream is Up  
 
-
+#################################################################################################################   
 however, RX replicate asserting HPD signal issue in 3840x2160@60fps will happen at:  
 video format: rgb888, yuv422 under hdmi1.4 protocal  
 
@@ -130,7 +130,7 @@ problem is solved after bening asserted call back function:
 XV_HdmiRxSs_SetCallback(&HdmiRxSs, XV_HDMIRXSS_HANDLER_DDC, RxDdcCallback, (void *)&HdmiRxSs);
 it can receive the hdmi2.0 video due to DDC callback active, it might make DDC channel(i2c) give a correct response to source side after it read the edid of xilinx hdmi,
 instead of asserting incorrectly hpd signal to source  
-
+#################################################################################################################   
 question1: how to calculate the bandwidth that can be suitable for your source video'stream  
 sol:  
 in HDMI2.0: maximum support pixel clk is 600MHz  
@@ -152,7 +152,7 @@ hence only HDMI2.0 or higher HDMI protocal can support the necessary bandwidth.
 
 
 
-
+#################################################################################################################   
 updating work log:  
 240123: solved the issue of missing parameter in axi_subset_converter while generate the block design  
         solved the issue of design's wrapper mistmatch in creat_proj.tcl  

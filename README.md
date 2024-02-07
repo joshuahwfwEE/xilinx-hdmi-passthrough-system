@@ -122,7 +122,8 @@ RX mode changed to HDMI
 RX Stream Start  
 RX Stream is Up  
 
-#################################################################################################################   
+#################################################################################################################  
+
 however, RX replicate asserting HPD signal issue in 3840x2160@60fps will happen at:  
 video format: rgb888, yuv422 under hdmi1.4 protocal  
 
@@ -130,7 +131,9 @@ problem is solved after bening asserted call back function:
 XV_HdmiRxSs_SetCallback(&HdmiRxSs, XV_HDMIRXSS_HANDLER_DDC, RxDdcCallback, (void *)&HdmiRxSs);
 it can receive the hdmi2.0 video due to DDC callback active, it might make DDC channel(i2c) give a correct response to source side after it read the edid of xilinx hdmi,
 instead of asserting incorrectly hpd signal to source  
-#################################################################################################################   
+
+#################################################################################################################  
+
 question1: how to calculate the bandwidth that can be suitable for your source video'stream  
 sol:  
 in HDMI2.0: maximum support pixel clk is 600MHz  

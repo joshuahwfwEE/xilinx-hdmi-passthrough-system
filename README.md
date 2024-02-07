@@ -55,6 +55,7 @@ source 02_jtag_close.tcl                 // close jtag channel
 
 
 
+#####################################################################################################################  
 
 in HDMI1.4: maximum support pixel clk is 340MHz  
 the maximum bandwidth: 340MHz*10bit（10bit encode）*3（3 data lanes）= 10.2Gbps  
@@ -63,9 +64,7 @@ according HDMI is using 8b/10b，it need to discont 20% of original bandwidth，
 under HDMI1.4, 3840x2160@60fps yuv420 can be supported because the bandwidth: 4400*2250*8bit*60fps=4.752Gbps can meet the requirement.  
 if stream up, you can see the folowing message: ...  
 
-
 TX stream is up  
-
 Pass-Through :  
         Color Format:             YUV_420  
         Color Depth:              8  
@@ -76,11 +75,7 @@ Pass-Through :
         Resolution:               3840x2160@60Hz  
         Pixel Clock:              594000 kHz  
 
-
-
-
-VPHY LOG  
-
+VPHY LOG:    
 GT init start  
 GT init done  
 RX frequency event  
@@ -104,8 +99,7 @@ QPLL lock
 TX reset done  
 TX alignment done  
 
-HDMI TX log  
-
+HDMI TX log:   
 Initializing HDMI TX core....  
 Initializing VTC core....  
 Reset HDMI TX Subsystem....  
@@ -118,8 +112,7 @@ TX Set Audio Channels (0)
 TX Stream is Up  
 
 
-HDMI RX log  
-
+HDMI RX log:    
 Initializing HDMI RX core....  
 Reset HDMI RX Subsystem....  
 RX cable is connected....  
@@ -131,31 +124,30 @@ RX Stream is Up
 
 
 however, RX replicate asserting HPD signal issue in 3840x2160@60fps will happen at:  
-video format: rgb888, yuv422  
+video format: rgb888, yuv422 under hdmi1.4 protocal  
 
+problem is solved after bening asserted call back function:   	   
+XV_HdmiRxSs_SetCallback(&HdmiRxSs, XV_HDMIRXSS_HANDLER_DDC, RxDdcCallback, (void *)&HdmiRxSs);
+it can receive the hdmi2.0 video due to DDC callback active, it might make DDC channel(i2c) give a correct response to source side after it read the edid of xilinx hdmi,
+instead of asserting incorrectly hpd signal to source  
 
-suspect:  
+question1: how to calculate the bandwidth that can be suitable for your source video'stream  
+sol:  
 in HDMI2.0: maximum support pixel clk is 600MHz  
 the maximum bandwidth: 600MHz*10bit（10bit encode）*3（3 data lanes）= 18Gbps   
 according HDMI is using 8b/10b，it need to discont 20% of original bandwidth，hence 18Gbps can support maximum bandwidth is: 18*0.8= 14.4Gbps  
 
 if you need to receive a video stream with 3840x2160@60fps, bpc=8, format is rgb888 =>  
-required bandwidth: 4400*2250*24bit*60fps=14.256Gbps  
-hence only HDMI2.0 or higher can support the bandwidth  
-
-if this issue caused by not supporting the custom mode, => checked, video mode is independent to video format yuv420:  
+required bandwidth: 4400*2250*24bit*60fps=14.256Gbps.   
+hence only HDMI2.0 or higher HDMI protocal can support the necessary bandwidth.    
  
-1. need to check rx's highest supported pixel clk.
-2. need to check what cause rx issue replicate hpd signal.
-3. check if support hdmi2.0 in edid, because 1.4 is not support 3840x2160@60fhz due to its bandwidth limit.
-4. dynmaic_config_VDMA(): if rx receive video infomation doesn't exist at video_timing_table, need to add it maunally(try to add 3840x2160@60fhz cvt and 3840x2160@60fhz cvtrb)
-5. add DRU feature and oversampling feature at 1 hdmi_mgb2_v11 + 1 ddr4_ht3:
+ 
 
-problem solved:  
-after asserted 	   
-XV_HdmiRxSs_SetCallback(&HdmiRxSs, XV_HDMIRXSS_HANDLER_DDC, RxDdcCallback, (void *)&HdmiRxSs); in main()  
-it can receive the hdmi2.0 video due to DDC callback active, it might make DDC channel(i2c) give a correct response to source side after it read the edid of xilinx hdmi,
-instead of asserting incorrectly hpd signal to source  
+
+
+
+
+
 
 
 
@@ -165,7 +157,7 @@ updating work log:
 240123: solved the issue of missing parameter in axi_subset_converter while generate the block design  
         solved the issue of design's wrapper mistmatch in creat_proj.tcl  
 240202: solved the issue in hdmi rx keep assereting reduplicated hpd to the source when source output 4k@60fhz rgb888 in application: Passthrough_Microblaze_1   
-        
+240214: add DRU feature and oversampling feature at hdmi vdma+ddr4 passthrough project          
 
 
 
